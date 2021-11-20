@@ -31,7 +31,7 @@ func api(c *gin.Context) {
 	case "registration":
 		ProcessingUnit.Registration("", "", &c)
 	case nil:
-		c.JSON(500, gin.H{
+		c.JSON(501, gin.H{
 			"Error": "type cannot be empty!!!!",
 		})
 	default:
