@@ -24,7 +24,7 @@ func api(c *gin.Context) {
 	defer func() {
 		err := recover()
 		if err != nil {
-			BasicTools.ReturnData(1, "An internal server error occurred and therefore your request could not be processed", &c)
+			ReturnData.Code500("An internal server error occurred and therefore your request could not be processed", &c)
 		}
 	}()
 
@@ -34,9 +34,9 @@ func api(c *gin.Context) {
 	switch json["type"] {
 	case "registration":
 		ProcessingUnit.Registration(json["username"], json["password"], &c)
-	case nil:
-		BasicTools.ReturnData(1, "Type cannot be empty!!!!", &c)
+	case nil, "":
+		ReturnData.Code501("Type cannot be empty!!!!", &c)
 	default:
-		BasicTools.ReturnData(1, fmt.Sprintf("Instruction %s does not exist", json["type"]), &c)
+		ReturnData.Code501(fmt.Sprintf("Instruction %s does not exist", json["type"]), &c)
 	}
 }
