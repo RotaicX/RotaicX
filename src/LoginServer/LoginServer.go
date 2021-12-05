@@ -16,11 +16,11 @@ func main() {
 		}
 	}()
 	r := gin.Default()
-	r.POST("/api", api)
+	r.POST("/AccountServices", AccountServices)
 	r.Run()
 }
 
-func api(c *gin.Context) {
+func AccountServices(c *gin.Context) {
 	defer func() {
 		err := recover()
 		if err != nil {
