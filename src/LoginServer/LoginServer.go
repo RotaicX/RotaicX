@@ -17,7 +17,10 @@ func main() {
 	}()
 	r := gin.Default()
 	r.POST("/AccountServices", AccountServices)
-	r.Run()
+	err := r.Run()
+	if err != nil {
+		panic(err)
+	}
 }
 
 func AccountServices(c *gin.Context) {
@@ -29,7 +32,10 @@ func AccountServices(c *gin.Context) {
 	}()
 
 	json := make(map[string]interface{})
-	c.BindJSON(&json)
+	err := c.BindJSON(&json)
+	if err != nil {
+		panic(err)
+	}
 
 	switch json["type"] {
 	case "registration":
