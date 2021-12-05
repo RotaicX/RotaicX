@@ -10,8 +10,7 @@ import (
 
 func main() {
 	defer func() {
-		err := recover()
-		if err != nil {
+		if recover() != nil {
 			log.Fatalln("A fatal error occurred and the program could not continue to run")
 		}
 	}()
