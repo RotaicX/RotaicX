@@ -1,5 +1,8 @@
 package DataBaseTools
 
-type User interface {
-	Check() bool
+type User struct {
+	DataBaseObject PostgreSQL
+}
+
+func (receiver *User) CheckExist() {
 }

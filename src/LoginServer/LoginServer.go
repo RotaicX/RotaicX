@@ -27,7 +27,7 @@ func AccountServices(c *gin.Context) {
 	defer func() {
 		err := recover()
 		if err != nil {
-			ReturnData.Code500("An internal server error occurred and therefore your request could not be processed", &c)
+			ReturnData.Code500("An internal server error occurred and therefore your request could not be processed", c)
 		}
 	}()
 
@@ -39,10 +39,10 @@ func AccountServices(c *gin.Context) {
 
 	switch json["type"] {
 	case "registration":
-		ProcessingUnit.Registration(json["username"], json["password"], &c)
+		ProcessingUnit.Registration(json["username"], json["password"], c)
 	case nil, "":
-		ReturnData.Code501("Type cannot be empty!!!!", &c)
+		ReturnData.Code501("Type cannot be empty!!!!", c)
 	default:
-		ReturnData.Code501(fmt.Sprintf("Instruction %s does not exist", json["type"]), &c)
+		ReturnData.Code501(fmt.Sprintf("Instruction %s does not exist", json["type"]), c)
 	}
 }

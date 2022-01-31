@@ -6,28 +6,27 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Connect interface {
-	Init() bool
-}
-
 type PostgreSQL struct {
-	Host          string
-	Post          string
-	UserName      string
-	Password      string
-	DataBaseName  string
+	Config        Config
 	ConnectObject *sql.DB
 }
+type Config struct {
+	Host         string
+	Post         string
+	UserName     string
+	Password     string
+	DataBaseName string
+}
 
-func (p PostgreSQL) Init() bool {
+func (p *PostgreSQL) Init() bool {
 	// postgres://UserName:Password@Host:Post/DataBaseName
 	PostgreSQLInfo := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
-		p.UserName,
-		p.Password,
-		p.Host,
-		p.Post,
-		p.DataBaseName)
+		p.Config.UserName,
+		p.Config.Password,
+		p.Config.Host,
+		p.Config.Post,
+		p.Config.DataBaseName)
 	DataBaseConnect, err := sql.Open("postgres", PostgreSQLInfo)
 	checkError(err)
 
@@ -39,17 +38,20 @@ func (p PostgreSQL) Init() bool {
 	}
 }
 
-func InitDataBaseConnect(Host string, Port string, UserName string, Password string, DataBaseName string) Connect {
-	var tmpInterface Connect
-	tmpInterface = PostgreSQL{
+func InitDataBaseConnect(Host string, Port string, UserName string, Password string, DataBaseName string) PostgreSQL {
+	DataBaseConnectConfig := Config{
 		Host:         Host,
 		Post:         Port,
 		UserName:     UserName,
 		Password:     Password,
 		DataBaseName: DataBaseName,
 	}
-	tmpInterface.Init()
-	return tmpInterface
+	tmpStruct := PostgreSQL{
+		Config: DataBaseConnectConfig,
+	}
+
+	tmpStruct.Init()
+	return tmpStruct
 }
 
 func checkError(err error) {
