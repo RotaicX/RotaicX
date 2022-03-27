@@ -1,0 +1,6 @@
+[DataBase]
+Host            = "localhost"
+Port            = "5432"
+UserName        = ""
+Password        = ""
+DataBaseName    = "RotaicX"

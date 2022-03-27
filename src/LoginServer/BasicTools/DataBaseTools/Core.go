@@ -12,39 +12,34 @@ type PostgreSQL struct {
 }
 type Config struct {
 	Host         string
-	Post         string
+	Port         string
 	UserName     string
 	Password     string
 	DataBaseName string
 }
 
-func (p *PostgreSQL) Init() bool {
-	// postgres://UserName:Password@Host:Post/DataBaseName
+func (p *PostgreSQL) Init() {
+	// postgres://UserName:Password@Host:Port/DataBaseName
 	PostgreSQLInfo := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		p.Config.UserName,
 		p.Config.Password,
 		p.Config.Host,
-		p.Config.Post,
+		p.Config.Port,
 		p.Config.DataBaseName)
 	DataBaseConnect, err := sql.Open("postgres", PostgreSQLInfo)
 	checkError(err)
 
-	if recover() != nil {
-		return false
-	} else {
-		p.ConnectObject = DataBaseConnect
-		return true
-	}
+	p.ConnectObject = DataBaseConnect
 }
 
-func InitDataBaseConnect(Host string, Port string, UserName string, Password string, DataBaseName string) PostgreSQL {
+func InitDataBaseConnect(config Config) PostgreSQL {
 	DataBaseConnectConfig := Config{
-		Host:         Host,
-		Post:         Port,
-		UserName:     UserName,
-		Password:     Password,
-		DataBaseName: DataBaseName,
+		Host:         config.Host,
+		Port:         config.Port,
+		UserName:     config.UserName,
+		Password:     config.Password,
+		DataBaseName: config.DataBaseName,
 	}
 	tmpStruct := PostgreSQL{
 		Config: DataBaseConnectConfig,
