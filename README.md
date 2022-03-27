@@ -10,6 +10,6 @@ Then the build will be stored in src/LoginServer/build
 * If your build fails due to network problems please run `make configproxy`
 
 # The third-party dependencies used in this project
-* [PostgreSQL driver for database/sql](github.com/lib/pq)
-* [Toml parser](github.com/BurntSushi/toml)
-* [Http Framework](github.com/gin-gonic/gin)
+* [PostgreSQL driver for database/sql](https://www.github.com/lib/pq)
+* [Toml parser](https://www.github.com/BurntSushi/toml)
+* [Http Framework](https://www.github.com/gin-gonic/gin)
