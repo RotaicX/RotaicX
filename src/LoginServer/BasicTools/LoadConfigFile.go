@@ -2,7 +2,7 @@ package BasicTools
 
 import (
 	"github.com/BurntSushi/toml"
-	RotaicxBasicTool "github.com/RotaicX/RotaicXBasicTool"
+	"github.com/RotaicX/RotaicXBasicTool"
 )
 
 type TomlConfig struct {
