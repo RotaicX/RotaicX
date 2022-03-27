@@ -1,8 +1,10 @@
 module LoginServer
 
-go 1.17
+go 1.18
 
 require (
+	github.com/BurntSushi/toml v1.0.0
+	github.com/RotaicX/RotaicXBasicTool v1.0.6
 	github.com/gin-gonic/gin v1.7.7
 	github.com/lib/pq v1.10.4
 )
